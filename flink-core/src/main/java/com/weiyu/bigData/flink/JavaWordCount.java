@@ -2,17 +2,15 @@ package com.weiyu.bigData.flink;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
-import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 
 import java.io.File;
 
 /**
- * @author weiyu@gomefinance.com.cn
+ * @author weiyu
  * @description
  * @create 2018/5/2 10:25
  * @since 1.0.0
