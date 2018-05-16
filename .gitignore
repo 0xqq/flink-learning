@@ -25,3 +25,6 @@ hs_err_pid*
 
 /.idea/
 /flink-core/flink-core.iml
+/flink-kafka/flink-kafka.iml
+/flink-core/target/
+/flink-kafka/target/
