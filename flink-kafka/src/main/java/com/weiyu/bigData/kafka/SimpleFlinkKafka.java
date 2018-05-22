@@ -10,6 +10,7 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple5;
 import org.apache.flink.streaming.api.CheckpointingMode;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor;
@@ -17,6 +18,9 @@ import org.apache.flink.streaming.api.windowing.assigners.GlobalWindows;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
 import org.apache.flink.util.Collector;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 /**
@@ -26,10 +30,13 @@ import java.util.Properties;
  * @since 1.0.0
  */
 public class SimpleFlinkKafka {
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.enableCheckpointing(10000,CheckpointingMode.EXACTLY_ONCE);
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+
         Properties props = new Properties();
         props.setProperty("bootstrap.servers","10.152.18.54:9092,10.152.18.55:9092,10.152.18.61:9092");
         props.setProperty("group.id","flink-test");
@@ -78,6 +85,11 @@ public class SimpleFlinkKafka {
         }).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Tuple3<String, String, String>>() {
             @Override
             public long extractAscendingTimestamp(Tuple3<String, String, String> element) {
+                try {
+                    return sdf.parse(element.f2).getTime();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return 0;
             }
         });
