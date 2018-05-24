@@ -1,6 +1,7 @@
 package com.weiyu.bigData.kafka;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
@@ -23,6 +24,8 @@ public class MeijieMonitor {
         FlinkKafkaConsumer010<String> consumer = new FlinkKafkaConsumer010<>("meijie_monitor_test", new SimpleStringSchema(),props);
         consumer.setStartFromEarliest();
         DataStream<String> stream = env.addSource(consumer);
+
+        //stream.writeAsText("hdfs://gmbdc-test:8020/user/weiyu/test",FileSystem.WriteMode.OVERWRITE).setParallelism(1);
 
         stream.print().setParallelism(1);
 
