@@ -1,4 +1,4 @@
-package com.weiyu.bigData.kafka;
+package willem.weiyu.bigData.flink;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.flink.api.common.functions.FilterFunction;

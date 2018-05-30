@@ -1,4 +1,4 @@
-package com.weiyu.bigData.kafka;
+package willem.weiyu.bigData.flink;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.core.fs.FileSystem;

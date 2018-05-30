@@ -1,4 +1,4 @@
-package com.weiyu.bigData.flink;
+package willem.weiyu.bigData.flink;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;

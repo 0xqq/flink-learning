@@ -1,4 +1,4 @@
-package willem.weiyu.bigData.kafka
+package willem.weiyu.bigData.flink.source
 
 import java.text.SimpleDateFormat
 import java.util.Properties
@@ -13,7 +13,7 @@ import org.apache.flink.streaming.api.{CheckpointingMode, TimeCharacteristic}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 import org.apache.flink.util.Collector
 
-object ScalaFlinkKafka {
+object ScalaKafkaSource {
   private val sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
 
   def main(args: Array[String]): Unit = {

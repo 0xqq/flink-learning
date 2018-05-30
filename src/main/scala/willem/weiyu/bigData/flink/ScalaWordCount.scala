@@ -1,4 +1,4 @@
-package com.weiyu.bigData.flink
+package willem.weiyu.bigData.flink
 
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
