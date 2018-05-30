@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON
 import org.apache.flink.api.common.functions.FilterFunction
 import org.apache.flink.api.common.serialization.SimpleStringSchema
 import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor
-import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
+import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.{CheckpointingMode, TimeCharacteristic}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
@@ -34,7 +34,7 @@ object ScalaFlinkKafka {
       override def filter(line: String): Boolean = {
         return "tm_app_main".equalsIgnoreCase(JSON.parseObject(line).getString("TABLENAME"))
       }
-    }).flatMap((line:String,collector:Collector[(String,String,String)])=>{
+    }).flatMap((line: String, collector: Collector[(String, String, String)]) => {
       val jsonObj = JSON.parseObject(line)
       collector.collect((jsonObj.getString("APP_NO"), jsonObj.getString("PRODUCT_CD"), jsonObj.getString("CREATE_TIME")))
     }).assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor[(String, String, String)](Time.milliseconds(10000)) {
@@ -43,7 +43,8 @@ object ScalaFlinkKafka {
       }
     })
 
-    main1Stream.print()
+    //    main1Stream.print()
+    main1Stream.writeAsText("hdfs://gmbdc-test/user/weiyu/test/flink")
 
     env.execute("scala flink-kafka")
   }
