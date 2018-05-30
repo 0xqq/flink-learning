@@ -16,6 +16,6 @@ object ScalaSocketSource {
 
     counts.print()
 
-    env.execute("scala window wordCount demo")
+    env.execute("scala socket demo")
   }
 }
