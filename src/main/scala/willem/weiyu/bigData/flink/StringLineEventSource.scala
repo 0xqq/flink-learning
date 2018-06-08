@@ -12,7 +12,7 @@ import scala.util.Random
 class StringLineEventSource extends RichParallelSourceFunction[String]{
   val LOG = LoggerFactory.getLogger(classOf[StringLineEventSource])
   @volatile private var running = true
-  val channelSet = Seq("a","b","c","d")
+  val channelSet = Seq("channel_1","channel_2","channel_3","channel_4")
   val behaviorTypes = Seq("INSTALL","OPEN","BROWSE","CLICK","PURCHASE","CLOSE","UNINSTALL")
   val rand = Random
 
