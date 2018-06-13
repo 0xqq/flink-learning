@@ -10,6 +10,6 @@ object ScalaCustomSource {
     val text = env.addSource(new StringLineEventSource)
     text.print
 
-    env.execute("scala custom")
+    env.execute("scala custom source")
   }
 }
