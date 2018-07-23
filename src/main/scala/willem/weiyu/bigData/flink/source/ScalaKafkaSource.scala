@@ -1,6 +1,7 @@
 package willem.weiyu.bigData.flink.source
 
 import java.text.SimpleDateFormat
+import java.util
 import java.util.Properties
 
 import com.alibaba.fastjson.JSON
@@ -11,6 +12,7 @@ import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.{CheckpointingMode, TimeCharacteristic}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
+import org.apache.flink.streaming.connectors.kafka.internals.KafkaTopicPartition
 import org.apache.flink.util.Collector
 
 object ScalaKafkaSource {
@@ -26,7 +28,14 @@ object ScalaKafkaSource {
     props.setProperty("bootstrap.servers", "10.152.18.54:9092,10.152.18.55:9092,10.152.18.61:9092")
     props.setProperty("group.id", "flink-test")
     val consumer = new FlinkKafkaConsumer010[String]("fen_0310_test", new SimpleStringSchema(), props)
-    consumer.setStartFromEarliest()
+    //默认偏移量获取
+//    consumer.setStartFromGroupOffsets()
+    //从最早开始消费
+//    consumer.setStartFromEarliest()
+    //指定消费位置
+//    val specificStartOffsets = new util.HashMap[KafkaTopicPartition, Long]()
+//    specificStartOffsets.put(new KafkaTopicPartition("fen_0310_test",0), 23L)
+//    consumer.setStartFromSpecificOffsets(specificStartOffsets)
 
     val stream = env.addSource(consumer)
 
