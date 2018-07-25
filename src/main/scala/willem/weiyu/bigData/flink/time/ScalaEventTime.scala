@@ -16,9 +16,15 @@ object ScalaEventTime {
 
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
+    //事件时间
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+    //处理时间(默认)
+//    env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime)
+    //提取时间
+//    env.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime)
 
     val line = env.addSource(new StringLineEventSource)
+
     val inputMap = line.map(word=>{
       val arr = word.split("\\|")
       (arr(0).toLong, arr(1), arr(2), arr(3))

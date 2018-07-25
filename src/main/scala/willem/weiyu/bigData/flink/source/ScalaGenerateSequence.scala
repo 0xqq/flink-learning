@@ -6,6 +6,9 @@ object ScalaGenerateSequence {
 
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
+    //设置缓存超时时间，调节吞吐及延迟
+//    env.setBufferTimeout(10)
+
     val somIntegers:DataStream[Long] = env.generateSequence(0,10)
     val iteratedStream = somIntegers.iterate(
       iteration =>{
